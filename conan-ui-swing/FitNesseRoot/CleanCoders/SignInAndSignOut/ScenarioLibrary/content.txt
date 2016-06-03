@@ -1,0 +1,20 @@
+|scenario|given no users|
+|clear users|
+
+|scenario|given username _|username|
+|update username|@username|
+
+|scenario|given password _|password|
+|update password|@password|
+
+|scenario|then user cannot sign in|
+|check|result of signin|false|
+
+|scenario|then user can sign in|
+|check|result of signin|true|
+
+|scenario|then logged in user has username _|user|
+|check|logged in user|@user|
+
+|scenario|given user _|user|
+|add user|@user|

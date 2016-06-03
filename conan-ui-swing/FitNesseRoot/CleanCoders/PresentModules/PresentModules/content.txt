@@ -1,0 +1,17 @@
+| Given Modules |
+| name | description |
+| A | A description |
+| B | B description |
+| C | C description |
+
+-!|script|
+|given user U|
+|with user U logged in|
+|and with license for U able to view A|
+|then presentation user will be U|
+
+| Query:of modules |
+| name | description | viewable |
+| A | A description | + |
+| C | C description | - |
+| B | B description | - |

@@ -1,0 +1,46 @@
+|scenario|given no transactions|
+|clear transactions|
+
+|scenario|then the following transactions will be presented for filter _|filter|
+|check|current filter|@filter|
+
+|scenario|there will be no transactions presented|
+|check|count of transactions presented|0|
+
+|scenario|given filter _|filter|
+|update filter|@filter|
+
+|scenario|given selected credit transaction with id _|id|
+|update credit selection|@id|
+
+|scenario|given selected debit transaction with id _|id|
+|update debit selection|@id|
+
+
+|scenario|given no selected credit transaction|
+|clear credit transaction selection|
+
+|scenario|given no selected debit transaction|
+|clear debit transaction selection|
+
+
+|scenario|then reconciliation will not be allowed|
+|check|recon enabled|false|
+
+|scenario|then the debit date will precede the credit date|
+|check|selection chronological|false|
+
+|scenario|then the credit date will precede the debit date|
+|check|selection chronological|true|
+
+|scenario|then the balance will not be zero|
+|check|selection amount balances|false|
+
+|scenario|then the balance will be zero|
+|check|selection amount balances|true|
+
+|scenario|then reconciliation will be allowed|
+|check|recon enabled|true|
+
+|scenario|then the selected transactions balance is _|amount|
+|check|current balance|@amount|

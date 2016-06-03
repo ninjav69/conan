@@ -1,0 +1,12 @@
+| Given Users|
+| username | password |
+| user1 | password1 |
+| user2 | password2 |
+| user3 | password3 |
+
+-!|script|
+|given username user1|
+|given password password1|
+|then user can sign in|
+|then logged in user has username user1|
+

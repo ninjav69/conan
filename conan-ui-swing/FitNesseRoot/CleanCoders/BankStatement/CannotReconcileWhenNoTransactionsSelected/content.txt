@@ -1,0 +1,4 @@
+-!|script|
+|given no selected credit transaction|
+|given no selected debit transaction|
+|then reconciliation will not be allowed |

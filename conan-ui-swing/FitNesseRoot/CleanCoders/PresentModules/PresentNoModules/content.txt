@@ -1,0 +1,6 @@
+-!|script|
+|given no modules                   |
+|given user U |
+|with user U logged in                |
+|then the following modules will be presented for U |
+|there will be no modules presented |

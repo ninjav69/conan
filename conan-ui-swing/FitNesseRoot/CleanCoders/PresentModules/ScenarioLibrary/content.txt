@@ -1,0 +1,20 @@
+|scenario|given no modules|
+|clear modules|
+
+|scenario|with user _ logged in|user|
+|login user|@user|
+
+|scenario|and with license for _ able to view _|user,module|
+|create license for |@user| viewing |@module|
+
+|scenario|then presentation user will be _|user|
+|check|presentation user|@user|
+
+|scenario|then the following modules will be presented for _|user|
+|check|presentation user|@user|
+
+|scenario|there will be no modules presented|
+|check|count of modules presented|0|
+
+|scenario|given user _|user|
+|add user|@user|

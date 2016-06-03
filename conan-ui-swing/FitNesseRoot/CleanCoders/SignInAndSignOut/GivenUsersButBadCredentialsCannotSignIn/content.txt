@@ -1,0 +1,12 @@
+| Given Users|
+| username | password |
+| user1 | password1 |
+| user2 | password2 |
+| user3 | password3 |
+
+-!|script|
+|given username foo|
+|given password bar|
+|then user cannot sign in|
+
+

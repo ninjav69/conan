@@ -1,0 +1,16 @@
+-!|script|
+|given no transactions |
+
+| Given Transactions|
+|id | date | reference | amount |
+| 0 | 1/1/2015 | TXNREF01 | 100.0 | 
+| 1 | 1/1/2015 | TXNREF02 | -100.0 |
+
+
+-!|script|
+|given selected credit transaction with id 0|
+|given selected debit transaction with id 1|
+|then the credit date will precede the debit date|
+|then the selected transactions balance is 0|
+|then the balance will be zero|
+|then reconciliation will be allowed|

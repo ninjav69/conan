@@ -1,4 +1,4 @@
-package org.ninjav.conan.debitorder.persistence;
+package org.ninjav.conan.debitorder;
 
 import org.ninjav.conan.core.Context;
 import org.ninjav.conan.debitorder.PresentDebitOrderPort;
@@ -29,7 +29,7 @@ public class PresentDebitOrderUseCase implements PresentDebitOrderPort {
     }
 
     private List<DebitOrder> findDebitOrders() {
-        if (filterText.isEmpty()) {
+        if (filterText == null || filterText.isEmpty()) {
             return Context.debitOrderGateway.findAllDebitOrders();
         } else {
             return Context.debitOrderGateway.findDebitOrdersMatchingAccountReference(filterText);

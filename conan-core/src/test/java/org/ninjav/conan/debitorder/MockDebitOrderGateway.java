@@ -32,7 +32,7 @@ public class MockDebitOrderGateway implements DebitOrderGateway {
     }
 
     @Override
-    public List<DebitOrder> findAccountsWhereTransactionIdIn(List<Long> transactionIds) {
+    public List<DebitOrder> findDebitOrdersWhereTransactionIdIn(List<Long> transactionIds) {
         List<DebitOrder> result = new ArrayList<>();
         for (Long id : transactionIds) {
             if (debitOrders.containsKey(id)) {

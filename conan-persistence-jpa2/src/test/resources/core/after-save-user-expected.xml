@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <AppUser id="1" userName="userTest" password="password"/>
+    <AppUser id="2" userName="userTest2" password="password2"/>
+    <AppUser id="3" userName="userTest3" password="password3"/>
+</dataset>

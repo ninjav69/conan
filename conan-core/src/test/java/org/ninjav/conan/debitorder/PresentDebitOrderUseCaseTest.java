@@ -6,7 +6,6 @@ import org.ninjav.conan.account.MockAccountGateway;
 import org.ninjav.conan.account.model.Account;
 import org.ninjav.conan.core.Context;
 import org.ninjav.conan.debitorder.model.DebitOrder;
-import org.ninjav.conan.debitorder.persistence.PresentDebitOrderUseCase;
 
 import java.util.Date;
 import java.util.List;

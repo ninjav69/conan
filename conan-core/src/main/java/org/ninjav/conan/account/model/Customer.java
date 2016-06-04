@@ -14,23 +14,15 @@ public class Customer {
     @Basic(optional = false)
     private Integer id;
 
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     private String firstName;
 
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     private String lastName;
 
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     private String mobile;
 
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     private String email;
 

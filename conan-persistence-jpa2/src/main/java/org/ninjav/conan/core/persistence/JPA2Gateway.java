@@ -15,12 +15,10 @@ import javax.persistence.Persistence;
  */
 public class JPA2Gateway implements Gateway {
 
-    private EntityManagerFactory entityManagerFactory;
     protected EntityManager entityManager;
 
-    public JPA2Gateway() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
-        entityManager = entityManagerFactory.createEntityManager();
+    public JPA2Gateway(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     public void beginTransaction() {

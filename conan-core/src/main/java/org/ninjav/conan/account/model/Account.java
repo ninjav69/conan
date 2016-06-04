@@ -19,7 +19,7 @@ public class Account {
     @Size(min = 1, max = 50)
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer holder;
 

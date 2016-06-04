@@ -8,6 +8,8 @@ package org.ninjav.conan.core.persistence;
 import org.ninjav.conan.core.model.License;
 import org.ninjav.conan.core.model.Module;
 import org.ninjav.conan.core.model.User;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -15,6 +17,10 @@ import java.util.List;
  * @author Alan.Pickard
  */
 public class JPA2CoreGateway extends JPA2Gateway implements CoreGateway {
+
+    public JPA2CoreGateway(EntityManager entityManager) {
+        super(entityManager);
+    }
 
     @Override
     public List<Module> findAllModules() {

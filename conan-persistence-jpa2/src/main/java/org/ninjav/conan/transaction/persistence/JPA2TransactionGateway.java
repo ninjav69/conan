@@ -8,6 +8,7 @@ package org.ninjav.conan.transaction.persistence;
 import org.ninjav.conan.core.persistence.JPA2Gateway;
 import org.ninjav.conan.transaction.model.*;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -15,6 +16,10 @@ import java.util.List;
  * @author Alan.Pickard
  */
 public class JPA2TransactionGateway extends JPA2Gateway implements TransactionGateway {
+
+    public JPA2TransactionGateway(EntityManager entityManager) {
+        super(entityManager);
+    }
 
     @Override
     public List<BankStmtTx> findAllTransactions() {

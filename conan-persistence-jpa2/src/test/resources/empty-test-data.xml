@@ -9,4 +9,7 @@
     <BankStmtTxReconNote/>
     <BankStmtTxReconContra/>
     <BankStmtTxReconAudit/>
+    <Account/>
+    <Customer/>
+    <DebitOrder/>
 </dataset>

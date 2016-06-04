@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <AppUser id="1" userName="userTest" password="password"/>
+    <AppUser id="2" userName="userTest2"  password="password2"/>
+    <AppModule id="1" name="moduleTest" description="moduleTest description"/>
+    <AppModule id="2" name="moduleTest2" description="moduleTest2 description"/>
+    <AppLicense id="1" appuser_fk="1" appmodule_fk="1"/>
+    <AppLicense id="2" appuser_fk="2" appmodule_fk="2"/>
+    <AppLicense id="3" appuser_fk="1" appmodule_fk="2"/>
+</dataset>

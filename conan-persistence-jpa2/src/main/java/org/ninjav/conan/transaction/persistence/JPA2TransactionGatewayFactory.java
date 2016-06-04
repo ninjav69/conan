@@ -5,12 +5,16 @@
  */
 package org.ninjav.conan.transaction.persistence;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author Alan.Pickard
  */
 public class JPA2TransactionGatewayFactory {
     public TransactionGateway createGateway() {
-        return new JPA2TransactionGateway();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-test");
+        return new JPA2TransactionGateway(emf.createEntityManager());
     }
 }

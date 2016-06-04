@@ -12,6 +12,9 @@
         <class>org.ninjav.conan.transaction.model.BankStmtTxReconAuditStatus</class>
         <class>org.ninjav.conan.transaction.model.BankStmtTxReconContra</class>
         <class>org.ninjav.conan.transaction.model.BankStmtTxReconNote</class>
+        <class>org.ninjav.conan.account.model.Account</class>
+        <class>org.ninjav.conan.account.model.Customer</class>
+        <class>org.ninjav.conan.debitorder.model.DebitOrder</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>

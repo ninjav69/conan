@@ -5,6 +5,9 @@
  */
 package org.ninjav.conan.core.persistence;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author Alan.Pickard
@@ -12,7 +15,8 @@ package org.ninjav.conan.core.persistence;
 public class JPA2CoreGatewayFactory implements CoreGatewayFactory {
 
     public CoreGateway createGateway() {
-        return new JPA2CoreGateway();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-test");
+        return new JPA2CoreGateway(emf.createEntityManager());
     }
     
 }

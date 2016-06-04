@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <AppModule id="1" name="moduleTest" description="moduleTest description"/>
+    <AppModule id="2" name="moduleTest2" description="moduleTest2 description"/>
+    <AppModule id="3" name="moduleTest3" description="moduleTest3 description"/>
+</dataset>

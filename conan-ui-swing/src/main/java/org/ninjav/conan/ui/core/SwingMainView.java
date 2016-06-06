@@ -32,6 +32,8 @@ public class SwingMainView extends MainView {
         });
         moduleRegistry = new ModuleRegistry(mainPanel.getModuleTab());
         moduleRegistry.registerModule("Reconciler", mainPanel.getReconcilePanel());
+        moduleRegistry.registerModule("Statement", mainPanel.getStatementPanel());
+        moduleRegistry.registerModule("Account", mainPanel.getAccountPanel());
         moduleRegistry.removeAllModules();
     }
 

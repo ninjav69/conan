@@ -4,6 +4,7 @@ import org.ninjav.conan.account.model.Account;
 import org.ninjav.conan.core.Context;
 import org.ninjav.conan.debitorder.model.DebitOrder;
 
+import javax.persistence.NoResultException;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,14 +19,19 @@ public class ImportPaymentResultUseCase implements ImportPaymentResultPort, Debi
 
     private Date currentDate;
     private Account currentAccount;
+    private DebitOrderResultReader reader = new DebitOrderResultReader();
 
     @Override
     public void importResult(File file) {
         parseDate(extractDateFromFilename(file));
 
-        DebitOrderResultReader reader = new DebitOrderResultReader();
         reader.attach(this);
         reader.importResult(file);
+    }
+
+    @Override
+    public void attach(DebitOrderDataSink sink) {
+        reader.attach(sink);
     }
 
     private String extractDateFromFilename(File file) {
@@ -47,7 +53,21 @@ public class ImportPaymentResultUseCase implements ImportPaymentResultPort, Debi
     }
 
     private void updateAccount(DebitOrderResultReader.DebitOrderData data) {
-        currentAccount = Context.accountGateway.save(createAccount(data));
+        Context.accountGateway.beginTransaction();
+        currentAccount = findExistingAccount(data.accountReference);
+        if (currentAccount == null) {
+            currentAccount = createAccount(data);
+        }
+        currentAccount = Context.accountGateway.save(currentAccount);
+        Context.accountGateway.commitTransaction();
+    }
+
+    private Account findExistingAccount(String accountReference) {
+        try {
+            return Context.accountGateway.findAccountByReference(accountReference);
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     private Account createAccount(DebitOrderResultReader.DebitOrderData data) {
@@ -58,7 +78,9 @@ public class ImportPaymentResultUseCase implements ImportPaymentResultPort, Debi
     }
 
     private void updateDebitOrder(DebitOrderResultReader.DebitOrderData data) {
+        Context.accountGateway.beginTransaction();
         Context.debitOrderGateway.save(createDebitOrder(data));
+        Context.accountGateway.commitTransaction();
     }
 
     private DebitOrder createDebitOrder(DebitOrderResultReader.DebitOrderData data) {

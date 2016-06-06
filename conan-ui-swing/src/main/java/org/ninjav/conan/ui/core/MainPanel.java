@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import org.ninjav.conan.ui.account.AccountPanel;
+import org.ninjav.conan.ui.statement.StatementPanel;
 
 /**
  *
@@ -36,19 +38,21 @@ public class MainPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         headerPanel = new javax.swing.JPanel();
-        userPanel = new UserPanel();
+        userPanel = new org.ninjav.conan.ui.core.UserPanel();
         headerLabel = new javax.swing.JLabel();
         welcomeLabel = new javax.swing.JLabel();
         mainSplitPanel = new javax.swing.JSplitPane();
-        loggerPanel = new LoggerPanel();
+        loggerPanel = new org.ninjav.conan.ui.logger.LoggerPanel();
         moduleTab = new javax.swing.JTabbedPane();
-        homePanel = new HomePanel();
-        reconcilePanel = new ReconcilePanel();
+        homePanel = new org.ninjav.conan.ui.core.HomePanel();
+        reconcilePanel = new org.ninjav.conan.ui.reconciler.ReconcilePanel();
+        statementPanel = new org.ninjav.conan.ui.statement.StatementPanel();
+        accountPanel = new org.ninjav.conan.ui.account.AccountPanel();
 
         headerPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         headerLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        headerLabel.setText("DCM Smart");
+        headerLabel.setText("Conan");
 
         welcomeLabel.setForeground(new java.awt.Color(102, 102, 102));
         welcomeLabel.setText("Not signed in");
@@ -87,20 +91,28 @@ public class MainPanel extends javax.swing.JPanel {
         reconcilePanel.setName("Reconciler"); // NOI18N
         moduleTab.addTab("Reconcile", reconcilePanel);
 
+        statementPanel.setName("Statement"); // NOI18N
+        moduleTab.addTab("Statement", statementPanel);
+        statementPanel.getAccessibleContext().setAccessibleName("");
+
+        accountPanel.setName("Account"); // NOI18N
+        moduleTab.addTab("Account", accountPanel);
+        accountPanel.getAccessibleContext().setAccessibleName("");
+
         mainSplitPanel.setLeftComponent(moduleTab);
-        moduleTab.getAccessibleContext().setAccessibleName("homeTab");
+        moduleTab.getAccessibleContext().setAccessibleName("moduleTab");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(mainSplitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1131, Short.MAX_VALUE)
+            .addComponent(mainSplitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1131, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainSplitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
         );
@@ -108,14 +120,16 @@ public class MainPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.ninjav.conan.ui.account.AccountPanel accountPanel;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
-    private HomePanel homePanel;
-    private LoggerPanel loggerPanel;
+    private org.ninjav.conan.ui.core.HomePanel homePanel;
+    private org.ninjav.conan.ui.logger.LoggerPanel loggerPanel;
     private javax.swing.JSplitPane mainSplitPanel;
     private javax.swing.JTabbedPane moduleTab;
-    private ReconcilePanel reconcilePanel;
-    private UserPanel userPanel;
+    private org.ninjav.conan.ui.reconciler.ReconcilePanel reconcilePanel;
+    private org.ninjav.conan.ui.statement.StatementPanel statementPanel;
+    private org.ninjav.conan.ui.core.UserPanel userPanel;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -163,4 +177,11 @@ public class MainPanel extends javax.swing.JPanel {
         return userPanel.getPasswordField();
     }
 
+    public StatementPanel getStatementPanel() {
+        return statementPanel;
+    }
+
+    public AccountPanel getAccountPanel() {
+        return accountPanel;
+    }
 }

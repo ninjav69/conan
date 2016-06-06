@@ -30,6 +30,17 @@ import org.ninjav.conan.transaction.persistence.JPA2TransactionGatewayFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import org.ninjav.conan.account.PresentAccountUseCase;
+import org.ninjav.conan.account.persistence.JPA2AccountGateway;
+import org.ninjav.conan.account.persistence.JPA2AccountGatewayFactory;
+import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGateway;
+import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGatewayFactory;
+import org.ninjav.conan.io.ImportPaymentResultUseCase;
+import org.ninjav.conan.ui.account.AccountPresenter;
+import org.ninjav.conan.ui.account.AccountView;
+import org.ninjav.conan.ui.account.SwingAccountView;
+import org.ninjav.conan.ui.statement.StatementPresenter;
+import org.ninjav.conan.ui.statement.SwingStatementView;
 
 /**
  *
@@ -64,13 +75,11 @@ public class Main {
 
         Context.coreGateway = new JPA2CoreGatewayFactory().createGateway();
         Context.transactionGateway = new JPA2TransactionGatewayFactory().createGateway();
+        Context.accountGateway = new JPA2AccountGatewayFactory().createGateway();
+        Context.debitOrderGateway = new JPA2DebitOrderGatewayFactory().createGateway();
+        
         initDatabase();
 
-//        String URL = "jdbc:hsqldb:mem:standalone-test";
-//        String USERNAME = "sa";
-//        String PASSWORD = "";
-//                
-//        org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url", URL, "--user", USERNAME, "--password", PASSWORD});        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             AppFrame frame = new AppFrame();
@@ -98,6 +107,21 @@ public class Main {
             reconcilePresenter.setReconcilePort(reconcileUseCase);
             reconcileView.setPresenter(reconcilePresenter);
 
+
+            // Statement stuff
+            SwingStatementView statementView = new SwingStatementView(frame.getStatementPanel());
+            StatementPresenter statementPresenter = new StatementPresenter(statementView);
+            ImportPaymentResultUseCase importUseCase = new ImportPaymentResultUseCase();
+            statementPresenter.setImportPort(importUseCase);
+            statementView.setPresenter(statementPresenter);
+            
+            // Account stuff
+            AccountView accountView = new SwingAccountView(frame.getAccountPanel());
+            AccountPresenter accountPressenter = new AccountPresenter(accountView);
+            PresentAccountUseCase presentAccountUseCase = new PresentAccountUseCase();
+            accountPressenter.setAccountsPort(presentAccountUseCase);
+            accountView.setPresenter(accountPressenter);
+            
             // Logger
             SwingLoggerView loggerView = new SwingLoggerView(frame.getLoggerPanel());
             LoggerPresenter loggerPresenter = new LoggerPresenter(loggerView);
@@ -113,9 +137,13 @@ public class Main {
         Context.coreGateway.beginTransaction();
 
         User newUser = Context.coreGateway.save(createUser("alan.pickard", "secret"));
-        Module newModule = Context.coreGateway.save(createModule("Reconciler"));
-        Context.coreGateway.save(new License(newUser, newModule));
-
+//        Module reconModule = Context.coreGateway.save(createModule("Reconciler"));
+//        Context.coreGateway.save(new License(newUser, reconModule));
+        Module statementModule = Context.coreGateway.save(createModule("Statement"));
+        Context.coreGateway.save(new License(newUser, statementModule));
+        Module accountModule = Context.coreGateway.save(createModule("Account"));
+        Context.coreGateway.save(new License(newUser, accountModule));
+        
         Context.coreGateway.commitTransaction();
 
         Context.transactionGateway.beginTransaction();

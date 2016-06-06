@@ -95,13 +95,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppFrame.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AppFrame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/ninjav/conan/ui/AppFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16480163">
+            <state vertical-scroll-proportion="0.0">
               <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainPanel.form" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/ninjav/conan/ui/core/MainPanel.form">
+          <provider selected="true" editor-type-id="ui-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -149,6 +156,7 @@
         <option value="$PROJECT_DIR$/src/test/java/coza/dcm/smart/ui/core/MainViewSpy.java" />
         <option value="$PROJECT_DIR$/src/test/java/org/ninjav/conan/ui/core/MainViewSpy.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/ninjav/conan/ui/core/MainPanel.form" />
       </list>
     </option>
   </component>
@@ -905,12 +913,12 @@
       <workItem from="1464965982956" duration="1615000" />
       <workItem from="1464977434330" duration="5690000" />
       <workItem from="1465082897113" duration="1112000" />
-      <workItem from="1465084485835" duration="37000" />
+      <workItem from="1465084485835" duration="1061000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8533000" />
+    <option name="totallyTimeSpent" value="9557000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="1" width="1918" height="1078" extended-state="0" />
@@ -1380,17 +1388,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/ninjav/conan/ui/core/MainPanel.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/ninjav/conan/ui/AppFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16480163">
+        <state vertical-scroll-proportion="0.0">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/ninjav/conan/ui/core/MainPanel.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
       </provider>
     </entry>
   </component>

@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 public class JPA2DebitOrderGatewayFactory implements DebitOrderGatewayFactory {
     @Override
     public DebitOrderGateway createGateway() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-test");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         return new JPA2DebitOrderGateway(emf.createEntityManager());
     }
 }

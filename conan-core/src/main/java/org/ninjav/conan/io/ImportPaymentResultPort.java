@@ -7,4 +7,5 @@ import java.io.File;
  */
 public interface ImportPaymentResultPort {
     void importResult(File file);
+    void attach(DebitOrderDataSink sink);
 }

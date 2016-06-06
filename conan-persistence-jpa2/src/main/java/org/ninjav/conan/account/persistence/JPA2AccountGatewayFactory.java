@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 public class JPA2AccountGatewayFactory implements AccountGatewayFactory {
     @Override
     public AccountGateway createGateway() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-test");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         return new JPA2AccountGateway(emf.createEntityManager());
     }
 }

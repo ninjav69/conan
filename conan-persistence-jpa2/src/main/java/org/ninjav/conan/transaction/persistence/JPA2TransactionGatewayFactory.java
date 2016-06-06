@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
  */
 public class JPA2TransactionGatewayFactory {
     public TransactionGateway createGateway() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence-test");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistence");
         return new JPA2TransactionGateway(emf.createEntityManager());
     }
 }

@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import org.ninjav.conan.account.PresentAccountUseCase;
 import org.ninjav.conan.account.persistence.JPA2AccountGateway;
 import org.ninjav.conan.account.persistence.JPA2AccountGatewayFactory;
+import org.ninjav.conan.debitorder.PresentDebitOrderUseCase;
 import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGateway;
 import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGatewayFactory;
 import org.ninjav.conan.io.ImportPaymentResultUseCase;
@@ -120,6 +121,8 @@ public class Main {
             AccountPresenter accountPressenter = new AccountPresenter(accountView);
             PresentAccountUseCase presentAccountUseCase = new PresentAccountUseCase();
             accountPressenter.setAccountsPort(presentAccountUseCase);
+            PresentDebitOrderUseCase presentDebitOrderUseCase = new PresentDebitOrderUseCase();
+            accountPressenter.setDebitOrderPort(presentDebitOrderUseCase);
             accountView.setPresenter(accountPressenter);
             
             // Logger

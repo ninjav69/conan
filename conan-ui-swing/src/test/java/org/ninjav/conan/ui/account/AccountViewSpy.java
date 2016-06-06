@@ -7,6 +7,7 @@ package org.ninjav.conan.ui.account;
 
 import java.util.List;
 import org.ninjav.conan.account.PresentableAccount;
+import org.ninjav.conan.debitorder.PresentableDebitOrder;
 
 /**
  *
@@ -17,6 +18,8 @@ public class AccountViewSpy extends AccountView {
     public int resetCalled = 0;
     public int clearAccountsCalled = 0;
     public int appendAccountsCalled = 0;
+    public int clearDebitOrdersCalled = 0;
+    private int appendDebitOrdersCalled = 0;
     
     @Override
     protected void reset() {
@@ -31,5 +34,15 @@ public class AccountViewSpy extends AccountView {
     @Override
     protected void appendAccounts(List<PresentableAccount> accounts) {
         appendAccountsCalled++;
+    }
+
+    @Override
+    protected void clearDebitOders() {
+        clearDebitOrdersCalled++;
+    }
+
+    @Override
+    protected void appendDebitOrders(List<PresentableDebitOrder> debitOrders) {
+        appendDebitOrdersCalled++;
     }
 }

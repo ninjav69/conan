@@ -12,6 +12,7 @@ import java.io.File;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import org.junit.Ignore;
 
 /**
  * Created by ninjav on 6/3/16.
@@ -38,6 +39,7 @@ public class ImportPaymentResultUseCaseTest {
     }
 
     @Test
+    @Ignore
     public void whenFileExists_mustRead() {
         useCase.importResult(new File("/tmp/15082015.xls"));
         assertDataImported();

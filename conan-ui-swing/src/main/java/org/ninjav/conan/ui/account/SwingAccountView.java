@@ -6,8 +6,13 @@
 package org.ninjav.conan.ui.account;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.DefaultTableModel;
 import org.ninjav.conan.account.PresentableAccount;
+import org.ninjav.conan.debitorder.PresentableDebitOrder;
 
 /**
  *
@@ -25,6 +30,26 @@ public class SwingAccountView extends AccountView {
     private void initView() {
         accountPanel.getAccountSearchButton().addActionListener((ActionEvent e) -> {
             searchAccounts();
+        });
+        
+        // Enable selection
+        accountPanel.getAccountSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (e.getValueIsAdjusting()) {
+                return;
+            }
+            
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+            if (lsm.isSelectionEmpty()) {
+                presenter.clearAccountSelection();
+
+            } else {
+                DefaultTableModel model = accountPanel.getAccountsModel();
+                List<String> selectedIds = new ArrayList<>();
+                for (int i : accountPanel.getSelectedAccountRows()) {
+                    selectedIds.add((String) model.getValueAt(i, 0));
+                }
+                presenter.setAccountSelection(selectedIds);
+            }
         });
         
         accountPanel.reset();
@@ -48,5 +73,15 @@ public class SwingAccountView extends AccountView {
     private void searchAccounts() {
         String filterText = accountPanel.getAccountSearchField().getText();
         presenter.findAccountsForFilter(filterText);
+    }
+
+    @Override
+    protected void clearDebitOders() {
+        accountPanel.clearDebitOrders();
+    }
+
+    @Override
+    protected void appendDebitOrders(List<PresentableDebitOrder> debitOrders) {
+        accountPanel.addDebitOrders(debitOrders);
     }
 }

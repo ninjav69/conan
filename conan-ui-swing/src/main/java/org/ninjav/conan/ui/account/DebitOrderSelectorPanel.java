@@ -5,17 +5,22 @@
  */
 package org.ninjav.conan.ui.account;
 
+import javax.swing.table.DefaultTableModel;
+import org.ninjav.conan.debitorder.PresentableDebitOrder;
+
 /**
  *
  * @author ninjav
  */
 public class DebitOrderSelectorPanel extends javax.swing.JPanel {
+    private DefaultTableModel debitOrderModel = null;
 
     /**
      * Creates new form DebitOrderSelectorPanel
      */
     public DebitOrderSelectorPanel() {
         initComponents();
+        debitOrderModel = (DefaultTableModel) debitOrderTable.getModel();
     }
 
     /**
@@ -28,9 +33,9 @@ public class DebitOrderSelectorPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        debitOrderTable = new javax.swing.JTable();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        debitOrderTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,7 +61,7 @@ public class DebitOrderSelectorPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(debitOrderTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -78,7 +83,17 @@ public class DebitOrderSelectorPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable debitOrderTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    void clearDebitOrders() {
+        debitOrderModel.setRowCount(0);
+    }
+
+    void addDebitOrders(PresentableDebitOrder d) {
+        debitOrderModel.addRow(new Object[]{
+            d.transactionId, d.amount, d.result
+        });
+    }
 }

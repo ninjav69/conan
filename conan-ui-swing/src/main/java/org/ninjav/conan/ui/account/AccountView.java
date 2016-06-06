@@ -7,6 +7,7 @@ package org.ninjav.conan.ui.account;
 
 import java.util.List;
 import org.ninjav.conan.account.PresentableAccount;
+import org.ninjav.conan.debitorder.PresentableDebitOrder;
 import org.ninjav.conan.transaction.PresentableTransaction;
 
 /**
@@ -24,4 +25,7 @@ public abstract class AccountView {
 
     protected abstract void clearAccounts();
     protected abstract void appendAccounts(List<PresentableAccount> accounts);
+    
+    protected abstract void clearDebitOders();
+    protected abstract void appendDebitOrders(List<PresentableDebitOrder> debitOrders);
 }

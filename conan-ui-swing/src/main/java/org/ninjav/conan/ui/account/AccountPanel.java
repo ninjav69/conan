@@ -8,8 +8,10 @@ package org.ninjav.conan.ui.account;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.ninjav.conan.account.PresentableAccount;
+import org.ninjav.conan.debitorder.PresentableDebitOrder;
 
 /**
  *
@@ -93,7 +95,21 @@ public class AccountPanel extends javax.swing.JPanel {
         return accountSelectorPanel.getSearchForField();
     }
     
+    public ListSelectionModel getAccountSelectionModel() {
+        return accountSelectorPanel.getSelectionModel();
+    }
+    
     public int[] getSelectedAccountRows() {
         return accountSelectorPanel.getSelectedRows();
+    }
+
+    public void clearDebitOrders() {
+        debitOrderSelectorPanel.clearDebitOrders();
+    }
+
+    public void addDebitOrders(List<PresentableDebitOrder> debitOrders) {
+        debitOrders.stream().forEach((a) -> {
+            debitOrderSelectorPanel.addDebitOrders(a);
+        });
     }
 }

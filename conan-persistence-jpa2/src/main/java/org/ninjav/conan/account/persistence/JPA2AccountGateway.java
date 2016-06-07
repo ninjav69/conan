@@ -18,7 +18,6 @@ public class JPA2AccountGateway extends JPA2Gateway implements AccountGateway {
     @Override
     public Account save(Account account) {
         entityManager.persist(account);
-        //entityManager.refresh(account);
         return account;
     }
 

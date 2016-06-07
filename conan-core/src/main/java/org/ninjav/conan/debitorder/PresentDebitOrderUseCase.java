@@ -22,6 +22,7 @@ public class PresentDebitOrderUseCase implements PresentDebitOrderPort {
             PresentableDebitOrder p = new PresentableDebitOrder();
             p.transactionId = d.getTransactionId();
             p.amount = d.getAmount();
+            p.date = d.getDate();
             p.result = extractUnpaidType(d.getResultCode());
             result.add(p);
         }
@@ -38,6 +39,8 @@ public class PresentDebitOrderUseCase implements PresentDebitOrderPort {
 
     private PresentableDebitOrder.Result extractUnpaidType(Integer resultCode) {
         switch (resultCode) {
+            case DebitOrder.PAID:
+                return PresentableDebitOrder.Result.PAID;
             case DebitOrder.ACCOUNT_FROZEN:
                 return PresentableDebitOrder.Result.ACCOUNT_FROZEN;
 

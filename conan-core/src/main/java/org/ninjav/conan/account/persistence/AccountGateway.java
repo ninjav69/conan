@@ -22,4 +22,5 @@ public interface AccountGateway extends Gateway {
     List<Account> findAccountsMatchingReference(String filterText);
 
     List<Account> findAccountsMatchingName(String filterText);
+
 }

@@ -5,7 +5,11 @@
  */
 package org.ninjav.conan.ui.account;
 
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.ninjav.conan.account.PresentableAccount;
 import org.ninjav.conan.debitorder.PresentableDebitOrder;
 
 /**
@@ -87,13 +91,29 @@ public class DebitOrderSelectorPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    void clearDebitOrders() {
-        debitOrderModel.setRowCount(0);
+    public void reset() {
+        clearDebitOrders();
     }
 
-    void addDebitOrders(PresentableDebitOrder d) {
+    public void addDebitOrder(PresentableDebitOrder debitOrder) {
         debitOrderModel.addRow(new Object[]{
-            d.transactionId, d.amount, d.result
+            debitOrder.transactionId, debitOrder.date, debitOrder.amount, debitOrder.result
         });
+    }
+    
+    public void clearDebitOrders() {
+        debitOrderModel.setRowCount(0);
+    }
+    
+    public ListSelectionModel getSelectionModel() {
+        return debitOrderTable.getSelectionModel();
+    }
+    
+    public DefaultTableModel getTableModel() {
+        return debitOrderModel;
+    }
+
+    public int[] getSelectedRows() {
+        return debitOrderTable.getSelectedRows();
     }
 }

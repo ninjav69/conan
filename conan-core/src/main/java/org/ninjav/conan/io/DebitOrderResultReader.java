@@ -47,15 +47,14 @@ public class DebitOrderResultReader implements DebitOrderDataSource {
     }
 
     private void processLine(String line) {
+        line = line.trim();
         if (line.startsWith("TR Id")) {
             return;
         }
         if (line.isEmpty()) {
             return;
         }
-        
-        Logger.getLogger(DebitOrderResultReader.class.getName()).info("Process line: " + line);
-        
+
         emit(parseDebitOrderData(line));
     }
 

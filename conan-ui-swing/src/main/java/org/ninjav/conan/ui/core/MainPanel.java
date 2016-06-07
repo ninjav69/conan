@@ -9,10 +9,12 @@ import org.ninjav.conan.ui.logger.LoggerPanel;
 import org.ninjav.conan.ui.reconciler.ReconcilePanel;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import org.ninjav.conan.ui.account.AccountPanel;
+import org.ninjav.conan.ui.dashboard.DashboardPanel;
 import org.ninjav.conan.ui.statement.StatementPanel;
 
 /**
@@ -46,6 +48,7 @@ public class MainPanel extends javax.swing.JPanel {
         moduleTab = new javax.swing.JTabbedPane();
         homePanel = new org.ninjav.conan.ui.core.HomePanel();
         reconcilePanel = new org.ninjav.conan.ui.reconciler.ReconcilePanel();
+        dashboardPanel = new org.ninjav.conan.ui.dashboard.DashboardPanel();
         statementPanel = new org.ninjav.conan.ui.statement.StatementPanel();
         accountPanel = new org.ninjav.conan.ui.account.AccountPanel();
 
@@ -91,6 +94,9 @@ public class MainPanel extends javax.swing.JPanel {
         reconcilePanel.setName("Reconciler"); // NOI18N
         moduleTab.addTab("Reconcile", reconcilePanel);
 
+        dashboardPanel.setName("Dashboard"); // NOI18N
+        moduleTab.addTab("Dashboard", dashboardPanel);
+
         statementPanel.setName("Statement"); // NOI18N
         moduleTab.addTab("Statement", statementPanel);
         statementPanel.getAccessibleContext().setAccessibleName("");
@@ -99,7 +105,7 @@ public class MainPanel extends javax.swing.JPanel {
         moduleTab.addTab("Account", accountPanel);
         accountPanel.getAccessibleContext().setAccessibleName("");
 
-        mainSplitPanel.setLeftComponent(moduleTab);
+        mainSplitPanel.setTopComponent(moduleTab);
         moduleTab.getAccessibleContext().setAccessibleName("moduleTab");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -121,6 +127,7 @@ public class MainPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.ninjav.conan.ui.account.AccountPanel accountPanel;
+    private org.ninjav.conan.ui.dashboard.DashboardPanel dashboardPanel;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
     private org.ninjav.conan.ui.core.HomePanel homePanel;
@@ -183,5 +190,9 @@ public class MainPanel extends javax.swing.JPanel {
 
     public AccountPanel getAccountPanel() {
         return accountPanel;
+    }
+
+    public DashboardPanel getDashboardPanel() {
+        return dashboardPanel;
     }
 }

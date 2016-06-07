@@ -5,6 +5,9 @@ import org.ninjav.conan.core.module.PresentableModule;
 
 import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -30,10 +33,25 @@ public class SwingMainView extends MainView {
         mainPanel.getSignOutButton().addActionListener((ActionEvent e) -> {
             presenter.signOut();
         });
+        mainPanel.getModuleTab().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JTabbedPane sourceTabbedPane = (JTabbedPane) e.getSource();
+                int index = sourceTabbedPane.getSelectedIndex();
+                presenter.changeModuleSelection(sourceTabbedPane.getTitleAt(index));
+            }
+        });
+
         moduleRegistry = new ModuleRegistry(mainPanel.getModuleTab());
-        moduleRegistry.registerModule("Reconciler", mainPanel.getReconcilePanel());
-        moduleRegistry.registerModule("Statement", mainPanel.getStatementPanel());
-        moduleRegistry.registerModule("Account", mainPanel.getAccountPanel());
+
+        moduleRegistry.registerModule(
+                "Reconciler", mainPanel.getReconcilePanel());
+        moduleRegistry.registerModule(
+                "Statement", mainPanel.getStatementPanel());
+        moduleRegistry.registerModule(
+                "Account", mainPanel.getAccountPanel());
+        moduleRegistry.registerModule(
+                "Dashboard", mainPanel.getDashboardPanel());
         moduleRegistry.removeAllModules();
     }
 
@@ -51,7 +69,7 @@ public class SwingMainView extends MainView {
     public void setMainPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
     }
-    
+
     @Override
     public void resetUserControls() {
         mainPanel.getUserPanel().reset();

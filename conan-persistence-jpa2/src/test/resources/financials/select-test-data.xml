@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <Account reference="0001" name="Alan Pickard"/>
+    <Account reference="0002" name="Jan Fiskaal"/>
+    <Account reference="0033" name="Koos Komkommer"/>
+    <Account reference="0034" name="Koos Kombuis"/>
+
+    <DebitOrder transactionId="1" amount="1.00" resultCode="0" date="2016-05-01" account="0001"/>
+    <DebitOrder transactionId="2" amount="2.00" resultCode="2" date="2016-06-01" account="0001"/>
+    <DebitOrder transactionId="3" amount="3.00" resultCode="2" date="2016-03-15" account="0002"/>
+</dataset>

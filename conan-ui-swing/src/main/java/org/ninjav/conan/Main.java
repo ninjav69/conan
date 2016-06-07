@@ -30,16 +30,27 @@ import org.ninjav.conan.transaction.persistence.JPA2TransactionGatewayFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.ninjav.conan.account.PresentAccountUseCase;
+import org.ninjav.conan.account.PresentFinancialsPort;
+import org.ninjav.conan.account.PresentFinancialsUseCase;
 import org.ninjav.conan.account.persistence.JPA2AccountGateway;
 import org.ninjav.conan.account.persistence.JPA2AccountGatewayFactory;
+import org.ninjav.conan.account.persistence.JPA2FinancialsGateway;
+import org.ninjav.conan.core.persistence.JPA2CoreGateway;
 import org.ninjav.conan.debitorder.PresentDebitOrderUseCase;
 import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGateway;
 import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGatewayFactory;
 import org.ninjav.conan.io.ImportPaymentResultUseCase;
+import org.ninjav.conan.transaction.persistence.JPA2TransactionGateway;
 import org.ninjav.conan.ui.account.AccountPresenter;
 import org.ninjav.conan.ui.account.AccountView;
 import org.ninjav.conan.ui.account.SwingAccountView;
+import org.ninjav.conan.ui.dashboard.DashboardPresenter;
+import org.ninjav.conan.ui.dashboard.DashboardView;
+import org.ninjav.conan.ui.dashboard.SwingDashboardView;
 import org.ninjav.conan.ui.statement.StatementPresenter;
 import org.ninjav.conan.ui.statement.SwingStatementView;
 
@@ -48,6 +59,9 @@ import org.ninjav.conan.ui.statement.SwingStatementView;
  * @author ninjav
  */
 public class Main {
+    
+    private static EntityManagerFactory emf;
+    private static EntityManager em;
 
     public static void main(String args[]) throws ParseException {
         /* Set the Nimbus look and feel */
@@ -74,10 +88,14 @@ public class Main {
         //</editor-fold>
         //</editor-fold>
 
-        Context.coreGateway = new JPA2CoreGatewayFactory().createGateway();
-        Context.transactionGateway = new JPA2TransactionGatewayFactory().createGateway();
-        Context.accountGateway = new JPA2AccountGatewayFactory().createGateway();
-        Context.debitOrderGateway = new JPA2DebitOrderGatewayFactory().createGateway();
+        emf = Persistence.createEntityManagerFactory("persistence");
+        em = emf.createEntityManager();
+
+        Context.coreGateway = new JPA2CoreGateway(em);
+        Context.transactionGateway = new JPA2TransactionGateway(em);
+        Context.accountGateway = new JPA2AccountGateway(em);
+        Context.debitOrderGateway = new JPA2DebitOrderGateway(em);
+        Context.financialsGateway = new JPA2FinancialsGateway(em);
         
         initDatabase();
 
@@ -125,6 +143,14 @@ public class Main {
             accountPressenter.setDebitOrderPort(presentDebitOrderUseCase);
             accountView.setPresenter(accountPressenter);
             
+            // Dashboard stuff
+            DashboardView dashboardView = new SwingDashboardView(frame.getDashboardPanel());
+            DashboardPresenter dashboardPresenter = new DashboardPresenter(dashboardView);
+            PresentFinancialsUseCase presentFinancialsUseCase = new PresentFinancialsUseCase();
+            dashboardPresenter.setPresentFinancialsPort(presentFinancialsUseCase);
+            dashboardView.setPresenter(dashboardPresenter);
+            mainPesenter.attach(dashboardPresenter);
+            
             // Logger
             SwingLoggerView loggerView = new SwingLoggerView(frame.getLoggerPanel());
             LoggerPresenter loggerPresenter = new LoggerPresenter(loggerView);
@@ -146,7 +172,9 @@ public class Main {
         Context.coreGateway.save(new License(newUser, statementModule));
         Module accountModule = Context.coreGateway.save(createModule("Account"));
         Context.coreGateway.save(new License(newUser, accountModule));
-        
+        Module dashboardModule = Context.coreGateway.save(createModule("Dashboard"));
+        Context.coreGateway.save(new License(newUser, dashboardModule));
+
         Context.coreGateway.commitTransaction();
 
         Context.transactionGateway.beginTransaction();

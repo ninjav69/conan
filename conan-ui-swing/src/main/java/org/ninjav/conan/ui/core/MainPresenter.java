@@ -5,6 +5,7 @@
  */
 package org.ninjav.conan.ui.core;
 
+import java.util.ArrayList;
 import org.ninjav.conan.core.model.User;
 import org.ninjav.conan.core.module.PresentModulePort;
 import org.ninjav.conan.core.module.PresentableModule;
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author ninjav
  */
-public class MainPresenter {
+public class MainPresenter implements ModuleEventSource {
 
     private MainView view;
     private MainModel model;
@@ -27,6 +28,8 @@ public class MainPresenter {
     private SignInPort signInPort;
     private SignOutPort signOutPort;
     private PresentModulePort modulesPort;
+    
+    private List<ModuleEventSink> moduleEventSinks = new ArrayList<>();
 
     public MainPresenter(MainView view, MainModel model) {
         this.view = view;
@@ -99,4 +102,21 @@ public class MainPresenter {
         List<PresentableModule> modules = modulesPort.presentModules(u);
         view.refreshModules(modules);
     }
+
+    @Override
+    public void attach(ModuleEventSink sink) {
+        moduleEventSinks.add(sink);
+    }
+
+    @Override
+    public void detach(ModuleEventSink sink) {
+        moduleEventSinks.remove(sink);
+    }
+
+    public void changeModuleSelection(String moduleName) {
+        for (ModuleEventSink s : moduleEventSinks) {
+            s.handleModuleSelect(moduleName);
+        }
+    }
+
 }

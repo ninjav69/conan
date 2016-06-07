@@ -39,14 +39,12 @@ public class ImportPaymentResultUseCaseTest {
     }
 
     @Test
-    @Ignore
     public void whenFileExists_mustRead() {
         useCase.importResult(getTestResource("sample/15012016.xls"));
         assertDataImported(105);
     }
 
     @Test
-    @Ignore
     public void whenFilesExist_mustImportFiles() {
         useCase.importResult(getTestResource("sample/15012016.xls"));
         useCase.importResult(getTestResource("sample/15022016.xls"));
@@ -57,6 +55,15 @@ public class ImportPaymentResultUseCaseTest {
         assertThat(Context.accountGateway.findAllAccounts(), is(not(empty())));
         assertThat(Context.debitOrderGateway.findAllDebitOrders(), is(not(empty())));
         assertThat(Context.debitOrderGateway.findAllDebitOrders().size(), is(equalTo(debitOrderCount)));
+    }
+
+    @Test
+    public void whenTwoSingleLineFilesRead_mustReadTwoLines() {
+        MockDebitOrderDataSink mockDataSink = new MockDebitOrderDataSink();
+        useCase.attach(mockDataSink);
+        useCase.importResult(getTestResource("sample/15012010.xls"));
+        useCase.importResult(getTestResource("sample/15022010.xls"));
+        assertThat(mockDataSink.handleCalled, is(equalTo(2)));
     }
 
 

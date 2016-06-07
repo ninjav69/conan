@@ -109,7 +109,7 @@ public class AccountPanel extends javax.swing.JPanel {
 
     public void addDebitOrders(List<PresentableDebitOrder> debitOrders) {
         debitOrders.stream().forEach((a) -> {
-            debitOrderSelectorPanel.addDebitOrders(a);
+            debitOrderSelectorPanel.addDebitOrder(a);
         });
     }
 }

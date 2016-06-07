@@ -1,4 +1,4 @@
-package org.ninjav.conan.core.persistence;
+package org.ninjav.conan.account.persistence;
 
 import org.dbunit.*;
 import org.junit.Before;

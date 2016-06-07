@@ -7,6 +7,7 @@ package org.ninjav.conan.ui;
 
 import org.ninjav.conan.ui.account.AccountPanel;
 import org.ninjav.conan.ui.core.MainPanel;
+import org.ninjav.conan.ui.dashboard.DashboardPanel;
 import org.ninjav.conan.ui.logger.LoggerPanel;
 import org.ninjav.conan.ui.reconciler.ReconcilePanel;
 import org.ninjav.conan.ui.statement.StatementPanel;
@@ -77,5 +78,9 @@ public class AppFrame extends javax.swing.JFrame {
     
     public AccountPanel getAccountPanel() {
         return mainPanel.getAccountPanel();
+    }
+
+    public DashboardPanel getDashboardPanel() {
+        return mainPanel.getDashboardPanel();
     }
 }

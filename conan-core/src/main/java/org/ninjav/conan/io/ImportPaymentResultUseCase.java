@@ -9,12 +9,15 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * Created by ninjav on 6/3/16.
  */
 public class ImportPaymentResultUseCase implements ImportPaymentResultPort, DebitOrderDataSink {
 
+    private Logger log = Logger.getLogger(ImportPaymentResultUseCase.class.getName());
+    
     private static final SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
 
     private Date currentDate;
@@ -57,6 +60,9 @@ public class ImportPaymentResultUseCase implements ImportPaymentResultPort, Debi
         currentAccount = findExistingAccount(data.accountReference);
         if (currentAccount == null) {
             currentAccount = createAccount(data);
+            log.info("Creating new account: " + currentAccount.getReference());
+        } else {
+            log.info("Reusing old account: " + currentAccount.getReference());
         }
         currentAccount = Context.accountGateway.save(currentAccount);
         Context.accountGateway.commitTransaction();
@@ -78,9 +84,19 @@ public class ImportPaymentResultUseCase implements ImportPaymentResultPort, Debi
     }
 
     private void updateDebitOrder(DebitOrderResultReader.DebitOrderData data) {
-        Context.accountGateway.beginTransaction();
-        Context.debitOrderGateway.save(createDebitOrder(data));
-        Context.accountGateway.commitTransaction();
+        Context.debitOrderGateway.beginTransaction();
+        
+        Account a = Context.accountGateway.findAccountByReference(data.accountReference);
+        DebitOrder d = Context.debitOrderGateway.findDebitOrderByTransactionId(data.transactionId);
+        if (d == null) {
+            d = createDebitOrder(data);
+        }
+        d.setAccount(a);
+
+        log.info("Saving new debit order: " + d.toString());
+        Context.debitOrderGateway.save(d);
+
+        Context.debitOrderGateway.commitTransaction();
     }
 
     private DebitOrder createDebitOrder(DebitOrderResultReader.DebitOrderData data) {

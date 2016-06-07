@@ -41,13 +41,28 @@ public class ImportPaymentResultUseCaseTest {
     @Test
     @Ignore
     public void whenFileExists_mustRead() {
-        useCase.importResult(new File("/tmp/15082015.xls"));
-        assertDataImported();
+        useCase.importResult(getTestResource("sample/15012016.xls"));
+        assertDataImported(105);
     }
 
-    private void assertDataImported() {
+    @Test
+    @Ignore
+    public void whenFilesExist_mustImportFiles() {
+        useCase.importResult(getTestResource("sample/15012016.xls"));
+        useCase.importResult(getTestResource("sample/15022016.xls"));
+        assertDataImported(195);
+    }
+
+    private void assertDataImported(int debitOrderCount) {
         assertThat(Context.accountGateway.findAllAccounts(), is(not(empty())));
         assertThat(Context.debitOrderGateway.findAllDebitOrders(), is(not(empty())));
-        assertThat(Context.debitOrderGateway.findAllDebitOrders().size(), is(equalTo(94)));
+        assertThat(Context.debitOrderGateway.findAllDebitOrders().size(), is(equalTo(debitOrderCount)));
+    }
+
+
+    public File getTestResource(String path) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(path).getFile());
+        return file;
     }
 }

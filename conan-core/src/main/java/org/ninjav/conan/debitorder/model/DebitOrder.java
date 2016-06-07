@@ -5,6 +5,7 @@ import org.ninjav.conan.account.model.Account;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by ninjav on 6/3/16.
@@ -37,7 +38,7 @@ public class DebitOrder {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "account", referencedColumnName = "reference")
     private Account account;
 
@@ -80,4 +81,31 @@ public class DebitOrder {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.transactionId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DebitOrder other = (DebitOrder) obj;
+        if (!Objects.equals(this.transactionId, other.transactionId)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

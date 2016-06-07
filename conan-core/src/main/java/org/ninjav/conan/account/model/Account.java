@@ -1,5 +1,6 @@
 package org.ninjav.conan.account.model;
 
+import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -46,5 +47,32 @@ public class Account {
     public void setHolder(Customer holder) {
         this.holder = holder;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.reference);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Account other = (Account) obj;
+        if (!Objects.equals(this.reference, other.reference)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
 

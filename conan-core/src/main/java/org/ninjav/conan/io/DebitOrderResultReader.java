@@ -3,6 +3,7 @@ package org.ninjav.conan.io;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by ninjav on 6/4/16.
@@ -52,6 +53,9 @@ public class DebitOrderResultReader implements DebitOrderDataSource {
         if (line.isEmpty()) {
             return;
         }
+        
+        Logger.getLogger(DebitOrderResultReader.class.getName()).info("Process line: " + line);
+        
         emit(parseDebitOrderData(line));
     }
 

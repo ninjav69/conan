@@ -2,3 +2,4 @@ conan-core/target
 conan-persistence-jpa2/target
 conan-ui-swing/target
 
+/conan-ui-console/target/

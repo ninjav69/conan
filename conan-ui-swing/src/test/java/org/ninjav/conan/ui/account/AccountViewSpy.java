@@ -19,7 +19,7 @@ public class AccountViewSpy extends AccountView {
     public int clearAccountsCalled = 0;
     public int appendAccountsCalled = 0;
     public int clearDebitOrdersCalled = 0;
-    private int appendDebitOrdersCalled = 0;
+    public int appendDebitOrdersCalled = 0;
     
     @Override
     protected void reset() {

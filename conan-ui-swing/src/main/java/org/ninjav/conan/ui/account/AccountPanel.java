@@ -70,7 +70,7 @@ public class AccountPanel extends javax.swing.JPanel {
 
     void reset() {
         accountSelectorPanel.reset();
-        //debitOrderSelectorPanel1.reset();
+        debitOrderSelectorPanel.reset();
     }
     
     public JButton getAccountSearchButton() {

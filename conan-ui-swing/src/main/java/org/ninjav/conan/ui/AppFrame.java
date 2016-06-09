@@ -10,6 +10,7 @@ import org.ninjav.conan.ui.core.MainPanel;
 import org.ninjav.conan.ui.dashboard.DashboardPanel;
 import org.ninjav.conan.ui.logger.LoggerPanel;
 import org.ninjav.conan.ui.reconciler.ReconcilePanel;
+import org.ninjav.conan.ui.recoverer.RecoveryPanel;
 import org.ninjav.conan.ui.statement.StatementPanel;
 
 /**
@@ -82,5 +83,9 @@ public class AppFrame extends javax.swing.JFrame {
 
     public DashboardPanel getDashboardPanel() {
         return mainPanel.getDashboardPanel();
+    }
+
+    public RecoveryPanel getRecoveryPanel() {
+        return mainPanel.getRecoveryPanel();
     }
 }

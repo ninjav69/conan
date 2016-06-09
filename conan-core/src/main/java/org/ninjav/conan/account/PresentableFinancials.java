@@ -7,6 +7,8 @@ public class PresentableFinancials {
     public double totalFunds;
     public double owedFunds;
     public double paidFunds;
+    public double writtenOffFunds;
+    public double recoveredFunds;
 
     public long numberOfAccounts;
     public long numberOfAccountsInArrears;

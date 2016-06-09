@@ -11,6 +11,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.ninjav.conan.account.PresentableAccount;
 import org.ninjav.conan.debitorder.PresentableDebitOrder;
+import org.ninjav.conan.ui.renderer.CurrencyCellRenderer;
+import org.ninjav.conan.ui.renderer.DateCellRenderer;
 
 /**
  *
@@ -24,6 +26,10 @@ public class DebitOrderSelectorPanel extends javax.swing.JPanel {
      */
     public DebitOrderSelectorPanel() {
         initComponents();
+
+        debitOrderTable.getColumnModel().getColumn(1).setCellRenderer(new DateCellRenderer());
+        debitOrderTable.getColumnModel().getColumn(2).setCellRenderer(new CurrencyCellRenderer());
+
         debitOrderModel = (DefaultTableModel) debitOrderTable.getModel();
     }
 
@@ -54,7 +60,7 @@ public class DebitOrderSelectorPanel extends javax.swing.JPanel {
                 java.lang.Long.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -65,7 +71,9 @@ public class DebitOrderSelectorPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        debitOrderTable.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(debitOrderTable);
+        debitOrderTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -12,12 +12,14 @@ public class PresentFinancialsUseCase implements PresentFinancialsPort {
         PresentableFinancials p = new PresentableFinancials();
         p.numberOfAccounts = findNumberOfAcounts();
         p.numberOfAccountsInArrears = findNumberOfAccountsInArrears();
-        p.owedFunds = findOwedFunds();
+        p.owedFunds = findOwedFunds() - findWrittenOffFunds() - findRecoveredFunds();
         p.paidFunds = findPaidFunds();
         p.totalDebitOrders = findTotalDebitOrders();
         p.totalFunds = findTotalFunds();
         p.totalPaidDebitOrders = findTotalPaidDebitOrders();
         p.totalUnpaidDebitOrders = findTotalUnpaidDebitOrders();
+        p.writtenOffFunds = findWrittenOffFunds();
+        p.recoveredFunds = findRecoveredFunds();
         return p;
     }
 
@@ -49,5 +51,13 @@ public class PresentFinancialsUseCase implements PresentFinancialsPort {
 
     private long findNumberOfAcounts() {
         return Context.financialsGateway.findNumberOfAccounts();
+    }
+
+    private double findWrittenOffFunds() {
+        return Context.financialsGateway.findWrittenOffFunds();
+    }
+    
+    private double findRecoveredFunds() {
+        return Context.financialsGateway.findRecoveredFunds();
     }
 }

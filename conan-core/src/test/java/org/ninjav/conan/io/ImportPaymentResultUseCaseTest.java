@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.ninjav.conan.account.MockAccountGateway;
 import org.ninjav.conan.core.Context;
 import org.ninjav.conan.debitorder.MockDebitOrderGateway;
+import org.ninjav.conan.debitorder.MockRecoveryWorkflowGateway;
 import org.ninjav.conan.debitorder.model.DebitOrder;
 
 import java.io.File;
@@ -25,6 +26,7 @@ public class ImportPaymentResultUseCaseTest {
     public void setup() {
         Context.accountGateway = new MockAccountGateway();
         Context.debitOrderGateway = new MockDebitOrderGateway();
+        Context.recoveryWorkflowGateway = new MockRecoveryWorkflowGateway();
         useCase = new ImportPaymentResultUseCase();
     }
 
@@ -41,20 +43,21 @@ public class ImportPaymentResultUseCaseTest {
     @Test
     public void whenFileExists_mustRead() {
         useCase.importResult(getTestResource("sample/15012016.xls"));
-        assertDataImported(105);
+        assertDataImported(105, 47);
     }
 
     @Test
     public void whenFilesExist_mustImportFiles() {
         useCase.importResult(getTestResource("sample/15012016.xls"));
         useCase.importResult(getTestResource("sample/15022016.xls"));
-        assertDataImported(195);
+        assertDataImported(195, 79);
     }
 
-    private void assertDataImported(int debitOrderCount) {
+    private void assertDataImported(int debitOrderCount, int recoveriesCount) {
         assertThat(Context.accountGateway.findAllAccounts(), is(not(empty())));
         assertThat(Context.debitOrderGateway.findAllDebitOrders(), is(not(empty())));
         assertThat(Context.debitOrderGateway.findAllDebitOrders().size(), is(equalTo(debitOrderCount)));
+        assertThat(Context.recoveryWorkflowGateway.findAllRecoveries().size(), is(equalTo(recoveriesCount)));
     }
 
     @Test

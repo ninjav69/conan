@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import org.ninjav.conan.ui.account.AccountPanel;
 import org.ninjav.conan.ui.dashboard.DashboardPanel;
+import org.ninjav.conan.ui.recoverer.RecoveryPanel;
 import org.ninjav.conan.ui.statement.StatementPanel;
 
 /**
@@ -48,9 +49,10 @@ public class MainPanel extends javax.swing.JPanel {
         moduleTab = new javax.swing.JTabbedPane();
         homePanel = new org.ninjav.conan.ui.core.HomePanel();
         reconcilePanel = new org.ninjav.conan.ui.reconciler.ReconcilePanel();
-        dashboardPanel = new org.ninjav.conan.ui.dashboard.DashboardPanel();
         statementPanel = new org.ninjav.conan.ui.statement.StatementPanel();
+        dashboardPanel = new org.ninjav.conan.ui.dashboard.DashboardPanel();
         accountPanel = new org.ninjav.conan.ui.account.AccountPanel();
+        recovererPanel = new org.ninjav.conan.ui.recoverer.RecoveryPanel();
 
         headerPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -85,7 +87,7 @@ public class MainPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        mainSplitPanel.setDividerLocation(500);
+        mainSplitPanel.setDividerLocation(700);
         mainSplitPanel.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         mainSplitPanel.setRightComponent(loggerPanel);
 
@@ -94,16 +96,19 @@ public class MainPanel extends javax.swing.JPanel {
         reconcilePanel.setName("Reconciler"); // NOI18N
         moduleTab.addTab("Reconcile", reconcilePanel);
 
-        dashboardPanel.setName("Dashboard"); // NOI18N
-        moduleTab.addTab("Dashboard", dashboardPanel);
-
         statementPanel.setName("Statement"); // NOI18N
         moduleTab.addTab("Statement", statementPanel);
         statementPanel.getAccessibleContext().setAccessibleName("");
 
+        dashboardPanel.setName("Dashboard"); // NOI18N
+        moduleTab.addTab("Dashboard", dashboardPanel);
+
         accountPanel.setName("Account"); // NOI18N
         moduleTab.addTab("Account", accountPanel);
         accountPanel.getAccessibleContext().setAccessibleName("");
+
+        recovererPanel.setName("Recovery"); // NOI18N
+        moduleTab.addTab("Recovery", recovererPanel);
 
         mainSplitPanel.setTopComponent(moduleTab);
         moduleTab.getAccessibleContext().setAccessibleName("moduleTab");
@@ -135,6 +140,7 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JSplitPane mainSplitPanel;
     private javax.swing.JTabbedPane moduleTab;
     private org.ninjav.conan.ui.reconciler.ReconcilePanel reconcilePanel;
+    private org.ninjav.conan.ui.recoverer.RecoveryPanel recovererPanel;
     private org.ninjav.conan.ui.statement.StatementPanel statementPanel;
     private org.ninjav.conan.ui.core.UserPanel userPanel;
     private javax.swing.JLabel welcomeLabel;
@@ -194,5 +200,9 @@ public class MainPanel extends javax.swing.JPanel {
 
     public DashboardPanel getDashboardPanel() {
         return dashboardPanel;
+    }
+
+    public RecoveryPanel getRecoveryPanel() {
+        return recovererPanel;
     }
 }

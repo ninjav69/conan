@@ -92,7 +92,7 @@
     </Container>
     <Container class="javax.swing.JSplitPane" name="mainSplitPanel">
       <Properties>
-        <Property name="dividerLocation" type="int" value="500"/>
+        <Property name="dividerLocation" type="int" value="700"/>
         <Property name="orientation" type="int" value="0"/>
       </Properties>
 
@@ -138,18 +138,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="org.ninjav.conan.ui.dashboard.DashboardPanel" name="dashboardPanel">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="Dashboard" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Dashboard">
-                    <Property name="tabTitle" type="java.lang.String" value="Dashboard"/>
-                  </JTabbedPaneConstraints>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="org.ninjav.conan.ui.statement.StatementPanel" name="statementPanel">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Statement" noResource="true"/>
@@ -165,6 +153,18 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Component class="org.ninjav.conan.ui.dashboard.DashboardPanel" name="dashboardPanel">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="Dashboard" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Dashboard">
+                    <Property name="tabTitle" type="java.lang.String" value="Dashboard"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+            </Component>
             <Component class="org.ninjav.conan.ui.account.AccountPanel" name="accountPanel">
               <Properties>
                 <Property name="name" type="java.lang.String" value="Account" noResource="true"/>
@@ -176,6 +176,18 @@
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                   <JTabbedPaneConstraints tabName="Account">
                     <Property name="tabTitle" type="java.lang.String" value="Account"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="org.ninjav.conan.ui.recoverer.RecoveryPanel" name="recovererPanel">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="Recovery" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Recovery">
+                    <Property name="tabTitle" type="java.lang.String" value="Recovery"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>

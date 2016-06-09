@@ -15,6 +15,7 @@
         <class>org.ninjav.conan.account.model.Account</class>
         <class>org.ninjav.conan.account.model.Customer</class>
         <class>org.ninjav.conan.debitorder.model.DebitOrder</class>
+        <class>org.ninjav.conan.debitorder.model.RecoveryWorkflow</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>

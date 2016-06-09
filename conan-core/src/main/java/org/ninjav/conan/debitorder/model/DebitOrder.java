@@ -4,6 +4,7 @@ import org.ninjav.conan.account.model.Account;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * Created by ninjav on 6/3/16.
  */
 @Entity
-public class DebitOrder {
+public class DebitOrder implements Serializable {
     public static final int PAID = 0;
     public static final int INSUFFICIENT_FUNDS = 2;
     public static final int NOT_A_DEBIT_ACCOUNT = 3;

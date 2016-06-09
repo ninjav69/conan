@@ -3,6 +3,7 @@ package org.ninjav.conan.io;
 import org.ninjav.conan.account.model.Account;
 import org.ninjav.conan.core.Context;
 import org.ninjav.conan.debitorder.model.DebitOrder;
+import org.ninjav.conan.debitorder.model.RecoveryWorkflow;
 
 import javax.persistence.NoResultException;
 import java.io.*;
@@ -53,6 +54,35 @@ public class ImportPaymentResultUseCase implements ImportPaymentResultPort, Debi
     public void handle(DebitOrderResultReader.DebitOrderData data) {
         updateAccount(data);
         updateDebitOrder(data);
+        if (data.paymentCode != DebitOrder.PAID) {
+            attachRecoveryWorkflow(data);
+        }
+    }
+
+    private void attachRecoveryWorkflow(DebitOrderResultReader.DebitOrderData data) {
+        Context.recoveryWorkflowGateway.beginTransaction();
+        RecoveryWorkflow existingRecovery = findExistingRecovery(data);
+        if (existingRecovery == null) {
+            DebitOrder existing = Context.debitOrderGateway
+                    .findDebitOrderByTransactionId(data.transactionId);
+            Context.recoveryWorkflowGateway.save(createRecoveryWorkflow(existing));
+        }
+        Context.recoveryWorkflowGateway.commitTransaction();
+    }
+
+    private RecoveryWorkflow findExistingRecovery(DebitOrderResultReader.DebitOrderData data) {
+        try {
+            return Context.recoveryWorkflowGateway.findRecoveryByDebitOrderTransactionId(data.transactionId);
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    private RecoveryWorkflow createRecoveryWorkflow(DebitOrder existing) {
+        RecoveryWorkflow r = new RecoveryWorkflow();
+        r.setDebitOrder(existing);
+        r.setStatus(RecoveryWorkflow.Status.NEW);
+        return r;
     }
 
     private void updateAccount(DebitOrderResultReader.DebitOrderData data) {

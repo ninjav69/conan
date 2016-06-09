@@ -14,6 +14,8 @@ public class MockSomeFinancialsGateway implements FinancialsGateway {
     public int fundNumberOfAccountsInArrearsCalled = 0;
     public int findTotalDebitOrdersCalled = 9;
     public int findTotalUnpaidDebitOrdersCalled = 0;
+    public int findWrittenOffFundsCalled = 0;
+    public int findRecoveredFundsCalled = 0;
 
     @Override
     public double findTotalFunds() {
@@ -61,6 +63,18 @@ public class MockSomeFinancialsGateway implements FinancialsGateway {
     public long findTotalUnpaidDebitOrders() {
         findTotalUnpaidDebitOrdersCalled++;
         return 8;
+    }
+
+    @Override
+    public double findWrittenOffFunds() {
+        findWrittenOffFundsCalled++;
+        return 0;
+    }
+
+    @Override
+    public double findRecoveredFunds() {
+        findRecoveredFundsCalled++;
+        return 0;
     }
 
     @Override

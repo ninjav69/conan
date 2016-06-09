@@ -16,6 +16,7 @@ import org.ninjav.conan.core.persistence.JPA2CoreGateway;
 import org.ninjav.conan.core.persistence.JPA2CoreGatewayFactory;
 import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGateway;
 import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGatewayFactory;
+import org.ninjav.conan.debitorder.persistence.JPA2RecoveryWorkflowGateway;
 import org.ninjav.conan.io.ImportPaymentResultPort;
 import org.ninjav.conan.io.ImportPaymentResultUseCase;
 import org.ninjav.conan.transaction.persistence.JPA2TransactionGateway;
@@ -37,6 +38,7 @@ public class Main {
         Context.coreGateway = new JPA2CoreGateway(em);
         Context.debitOrderGateway = new JPA2DebitOrderGateway(em);
         Context.transactionGateway = new JPA2TransactionGateway(em);
+        Context.recoveryWorkflowGateway = new JPA2RecoveryWorkflowGateway(em);
         
         importPort = new ImportPaymentResultUseCase();
     }

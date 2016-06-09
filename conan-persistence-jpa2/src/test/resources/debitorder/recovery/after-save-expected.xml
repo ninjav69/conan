@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <Account reference="0001" name="Alan Pickard"/>
+    <Account reference="0002" name="Jan Fiskaal"/>
+    <Account reference="0033" name="Koos Komkommer"/>
+    <Account reference="0034" name="Koos Kombuis"/>
+
+    <DebitOrder transactionId="1" amount="1.23" resultCode="0" date="2016-05-01" account="0001"/>
+    <DebitOrder transactionId="2" amount="4.56" resultCode="2" date="2016-06-01" account="0001"/>
+    <DebitOrder transactionId="3" amount="7.89" resultCode="2" date="2016-03-15" account="0002"/>
+    <DebitOrder transactionId="4" amount="9.10" resultCode="2" date="2017-03-15" account="0033"/>
+
+    <RecoveryWorkflow debitOrder_transactionId="2" status="2"/>
+    <RecoveryWorkflow debitOrder_transactionId="3" status="3"/>
+    <RecoveryWorkflow debitOrder_transactionId="4" status="0"/>
+</dataset>

@@ -52,6 +52,8 @@ public class SwingMainView extends MainView {
                 "Account", mainPanel.getAccountPanel());
         moduleRegistry.registerModule(
                 "Dashboard", mainPanel.getDashboardPanel());
+        moduleRegistry.registerModule(
+                "Recovery", mainPanel.getRecoveryPanel());
         moduleRegistry.removeAllModules();
     }
 

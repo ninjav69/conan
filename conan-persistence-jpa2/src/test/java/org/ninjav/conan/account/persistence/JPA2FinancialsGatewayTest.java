@@ -41,10 +41,12 @@ public class JPA2FinancialsGatewayTest {
 
         long numberOfAccounts = sut.findNumberOfAccounts();
         long numberOfAccountsInArrears = sut.findNumberOfAccountsInArrears();
+        double totalFunds = sut.findTotalFunds();
         double owedFunds = sut.findOwedFunds();
         double paidFunds = sut.findPaidFunds();
+        double writtenOffFunds = sut.findWrittenOffFunds();
+        double recoveredFunds = sut.findRecoveredFunds();
         long totalDebitOrders = sut.findTotalDebitOrders();
-        double totalFunds = sut.findTotalFunds();
         long totalPaidDebitOrders = sut.findTotalPaidDebitOrders();
         long totalUnpaidDebitOrders = sut.findTotalUnpaidDebitOrders();
 
@@ -56,5 +58,7 @@ public class JPA2FinancialsGatewayTest {
         assertThat(totalFunds, is(equalTo(6.0)));
         assertThat(totalPaidDebitOrders, is(equalTo(1L)));
         assertThat(totalUnpaidDebitOrders, is(equalTo(2L)));
+        assertThat(writtenOffFunds, is(equalTo(3.0)));
+        assertThat(recoveredFunds, is(equalTo(2.0)));
     }
 }

@@ -25,24 +25,22 @@ import org.ninjav.conan.logger.LogEventUseCase;
 import org.ninjav.conan.transaction.PresentCreditTransactionUseCase;
 import org.ninjav.conan.transaction.PresentDebitTransactionUseCase;
 import org.ninjav.conan.transaction.ReconcileTransactionUseCase;
-import org.ninjav.conan.transaction.model.BankStmtTx;
-import org.ninjav.conan.transaction.persistence.JPA2TransactionGatewayFactory;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.ninjav.conan.account.PresentAccountUseCase;
-import org.ninjav.conan.account.PresentFinancialsPort;
 import org.ninjav.conan.account.PresentFinancialsUseCase;
 import org.ninjav.conan.account.persistence.JPA2AccountGateway;
-import org.ninjav.conan.account.persistence.JPA2AccountGatewayFactory;
 import org.ninjav.conan.account.persistence.JPA2FinancialsGateway;
 import org.ninjav.conan.core.persistence.JPA2CoreGateway;
 import org.ninjav.conan.debitorder.PresentDebitOrderUseCase;
+import org.ninjav.conan.debitorder.PresentRecoveryWorkflowUseCase;
+import org.ninjav.conan.debitorder.UpdateRecoveryWorkflowStatusPort;
+import org.ninjav.conan.debitorder.UpdateRecoveryWorkflowStatusUseCase;
 import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGateway;
-import org.ninjav.conan.debitorder.persistence.JPA2DebitOrderGatewayFactory;
+import org.ninjav.conan.debitorder.persistence.JPA2RecoveryWorkflowGateway;
 import org.ninjav.conan.io.ImportPaymentResultUseCase;
 import org.ninjav.conan.transaction.persistence.JPA2TransactionGateway;
 import org.ninjav.conan.ui.account.AccountPresenter;
@@ -51,6 +49,10 @@ import org.ninjav.conan.ui.account.SwingAccountView;
 import org.ninjav.conan.ui.dashboard.DashboardPresenter;
 import org.ninjav.conan.ui.dashboard.DashboardView;
 import org.ninjav.conan.ui.dashboard.SwingDashboardView;
+import org.ninjav.conan.ui.recoverer.RecoveryPanel;
+import org.ninjav.conan.ui.recoverer.RecoveryPresenter;
+import org.ninjav.conan.ui.recoverer.RecoveryView;
+import org.ninjav.conan.ui.recoverer.SwingRecoveryView;
 import org.ninjav.conan.ui.statement.StatementPresenter;
 import org.ninjav.conan.ui.statement.SwingStatementView;
 
@@ -96,6 +98,7 @@ public class Main {
         Context.accountGateway = new JPA2AccountGateway(em);
         Context.debitOrderGateway = new JPA2DebitOrderGateway(em);
         Context.financialsGateway = new JPA2FinancialsGateway(em);
+        Context.recoveryWorkflowGateway = new JPA2RecoveryWorkflowGateway(em);
         
         initDatabase();
 
@@ -151,6 +154,15 @@ public class Main {
             dashboardView.setPresenter(dashboardPresenter);
             mainPesenter.attach(dashboardPresenter);
             
+            // Recovery stuff
+            RecoveryView recoveryView = new SwingRecoveryView(frame.getRecoveryPanel());
+            RecoveryPresenter recoveryPresenter = new RecoveryPresenter(recoveryView);
+            PresentRecoveryWorkflowUseCase presentRecoveryUseCase = new PresentRecoveryWorkflowUseCase();
+            recoveryPresenter.setRecoveryPort(presentRecoveryUseCase);
+            UpdateRecoveryWorkflowStatusUseCase updateRecoveryUseCase = new UpdateRecoveryWorkflowStatusUseCase();
+            recoveryPresenter.setWorkflowPort(updateRecoveryUseCase);
+            recoveryView.setPresenter(recoveryPresenter);
+            
             // Logger
             SwingLoggerView loggerView = new SwingLoggerView(frame.getLoggerPanel());
             LoggerPresenter loggerPresenter = new LoggerPresenter(loggerView);
@@ -165,39 +177,17 @@ public class Main {
     private static void initDatabase() throws ParseException {
         Context.coreGateway.beginTransaction();
 
-        User newUser = Context.coreGateway.save(createUser("alan.pickard", "secret"));
-//        Module reconModule = Context.coreGateway.save(createModule("Reconciler"));
-//        Context.coreGateway.save(new License(newUser, reconModule));
+        User newUser = Context.coreGateway.save(createUser("chris", "secret"));
         Module statementModule = Context.coreGateway.save(createModule("Statement"));
         Context.coreGateway.save(new License(newUser, statementModule));
         Module accountModule = Context.coreGateway.save(createModule("Account"));
         Context.coreGateway.save(new License(newUser, accountModule));
         Module dashboardModule = Context.coreGateway.save(createModule("Dashboard"));
         Context.coreGateway.save(new License(newUser, dashboardModule));
+        Module recoveryModule = Context.coreGateway.save(createModule("Recovery"));
+        Context.coreGateway.save(new License(newUser, recoveryModule));
 
         Context.coreGateway.commitTransaction();
-
-        Context.transactionGateway.beginTransaction();
-
-        Context.transactionGateway.save(createTransaction("1/1/2015", "TXNREF001", 100.0));
-        Context.transactionGateway.save(createTransaction("1/1/2015", "TXNREF002", 200.0));
-        Context.transactionGateway.save(createTransaction("2/1/2015", "TXNREF003", -100.0));
-        Context.transactionGateway.save(createTransaction("2/1/2015", "TXNREF004", -300.0));
-
-        Context.transactionGateway.commitTransaction();
-    }
-
-    private static BankStmtTx createTransaction(String date, String reference, double amount) throws ParseException {
-        SimpleDateFormat df = new SimpleDateFormat("d/M/yyyy");
-        BankStmtTx tx = new BankStmtTx();
-        tx.setTransactionDate(df.parse(date));
-        tx.setTransactionReference(reference);
-        tx.setTransactionAmount(toCents(amount));
-        return tx;
-    }
-
-    private static int toCents(double amount) {
-        return (int) (amount * 100);
     }
 
     private static User createUser(String username, String password) {

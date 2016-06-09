@@ -41,6 +41,7 @@ public class AccountPresenter {
     
     public void findAccountsForFilter(String filterText) {
         view.clearAccounts();
+        view.clearDebitOders();
         accountsPort.setFilterText(filterText);
         List<PresentableAccount> a = accountsPort.presentAccounts();
         if (a != null && !a.isEmpty()) {

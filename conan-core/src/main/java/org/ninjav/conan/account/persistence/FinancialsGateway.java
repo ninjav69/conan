@@ -9,6 +9,8 @@ public interface FinancialsGateway extends Gateway {
     double findTotalFunds();
     double findOwedFunds();
     double findPaidFunds();
+    double findWrittenOffFunds();
+    double findRecoveredFunds();
     long findNumberOfAccounts();
     long findNumberOfAccountsInArrears();
     long findTotalDebitOrders();

@@ -51,6 +51,8 @@ public class AccountPresenterTest {
 
         assertThat(viewSpy.clearAccountsCalled, is(1));
         assertThat(viewSpy.appendAccountsCalled, is(0));
+        assertThat(viewSpy.clearDebitOrdersCalled, is(1));
+        assertThat(viewSpy.appendDebitOrdersCalled, is(0));
     }
     
     @Test
